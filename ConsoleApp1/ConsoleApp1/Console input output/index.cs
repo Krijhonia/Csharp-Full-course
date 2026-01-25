@@ -1,13 +1,53 @@
-// Console input / output in Csharp
+using System;
 
+class Program
+{
+    static void Main()
+    {
+        // 1. Setup UI
+        Console.Title = "C# User Profile System";
+        Console.BackgroundColor = ConsoleColor.DarkBlue;
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.Clear();
 
+        Console.WriteLine("--- WELCOME TO THE SYSTEM ---");
+        Console.ResetColor(); // Reset to default colors for input
 
-Console.WriteLine("Hello my name is Kunal");
-Console.Write("What is your name: ");
+        // 2. Getting String Input (Basic)
+        Console.Write("\nEnter your full name: ");
+        var fullName = Console.ReadLine();
 
-string name = Console.ReadLine();
-Console.WriteLine(name);
-Console.Write("What is your age: ");
+        // 3. Getting Numeric Input (Advanced)
+        // We use int.TryParse to prevent the program from crashing if the user types a letter
+        int age;
+        while (true) 
+        {
+            Console.Write("Enter your age: ");
+            string ageInput = Console.ReadLine();
+            
+            if (int.TryParse(ageInput, out age)) break; // Valid number! Exit loop.
+            
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Invalid input. Please enter a number.");
+            Console.ResetColor();
+        }
 
-string age = Console.ReadLine();
-Console.WriteLine(age);
+        // 4. Using ReadKey for a "Press any key" experience
+        Console.WriteLine("\nThank you. Press any key to generate your profile...");
+        Console.ReadKey();
+
+        // 5. Outputting with String Interpolation ($)
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("*******************************");
+        Console.WriteLine($"PROFILE CREATED: {fullName.ToUpper()}");
+        Console.WriteLine($"AGE: {age} years old");
+        Console.WriteLine($"STATUS: {(age >= 18 ? "Adult" : "Minor")}");
+        Console.WriteLine("*******************************");
+        Console.ResetColor();
+
+        // Keep console open
+        Console.WriteLine("\nPress Enter to exit.");
+        Console.ReadLine();
+    }
+}
